@@ -9,7 +9,19 @@ function index(req, res) {
                 error: 'server Error INDEX function',
             });
 
-        res.json(results);
+        // res.json(results); //versione senza img dinamica
+
+        //mappiamo movies aggiungendo dinamicamente all'imagePath la stringa movie.image
+        const movies = results.map((movie) => {
+            return {
+                ...movie,
+                image: req.imagePath + movie.title.toLowerCase() + ".jpg", //devo usare per forza il title poichè la img è vuota nel database soluzione momentanea
+            }
+        });
+
+        //salviamo la risposta json in movies
+        res.json(movies);
+
     });
 }
 
@@ -41,7 +53,12 @@ function show(req, res) {
                 });
 
             movie.reviews = reviewsResults;
-            res.json(movie);
+            // res.json(movie);
+
+            res.json({
+                ...movie,
+                image: req.imagePath + movie.title.toLowerCase() + ".jpg", //stessa cosa di sopra soluzione momentanea
+            })
         });
     });
 }
