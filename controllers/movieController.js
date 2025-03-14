@@ -15,7 +15,7 @@ function index(req, res) {
         const movies = results.map((movie) => {
             return {
                 ...movie,
-                image: req.imagePath + movie.title.toLowerCase() + ".jpg", //devo usare per forza il title poichè la img è vuota nel database soluzione momentanea
+                image: req.imagePath + movie.image, //devo usare per forza il title poichè la img è vuota nel database soluzione momentanea
             }
         });
 
@@ -57,7 +57,7 @@ function show(req, res) {
 
             res.json({
                 ...movie,
-                image: req.imagePath + movie.title.toLowerCase() + ".jpg", //stessa cosa di sopra soluzione momentanea
+                image: req.imagePath + movie.image, //stessa cosa di sopra soluzione momentanea
             })
         });
     });
