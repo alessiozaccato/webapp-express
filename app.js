@@ -1,5 +1,6 @@
 //pacchetti da importare
 import express from "express";
+import cors from "cors";
 
 //impostiamo express e la porta del server
 const app = express();
@@ -10,6 +11,13 @@ import movieRouter from './routers/movieRouter.js'
 
 //importiamo il middleware del path imagini
 import imagePathMiddleware from './middlewares/imagePath.js'
+
+//middleware per gestire i cors
+app.use(
+    cors({
+        origin: process.env.FRONTEND_APP,
+    })
+);
 
 //middleware per gestire path immagini
 app.use(express.static('public'));
