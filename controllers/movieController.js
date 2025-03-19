@@ -78,4 +78,31 @@ function show(req, res) {
 //     });
 // }
 
-export { index, show };
+function storeReview(req, res) {
+
+    //recuparare l'id
+    const { id } = req.params;
+
+    //recuparare le informazioni del body
+    const { text, name, vote } = req.body;
+
+    //preparazione della query
+    const reviewSql =
+        'INSERT INTO reviews ( text, name, vote, movie_id ) VALUES (?,?,?,?)';
+
+    //eseguiamo la query
+    connection.query(reviewSql, [text, name, vote, id], (err, results) => {
+        if (err)
+            return res.status(500).json({
+                error: 'Database Errore StoreReview',
+            });
+
+        res.status(201);
+        res.json({
+            message: 'review Added',
+            id: results.insertId,
+        });
+    });
+}
+
+export { index, show, storeReview };
